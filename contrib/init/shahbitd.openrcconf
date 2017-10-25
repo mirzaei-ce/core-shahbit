@@ -1,0 +1,33 @@
+# /etc/conf.d/shahbitd: config file for /etc/init.d/shahbitd
+
+# Config file location
+#SHAHBITD_CONFIGFILE="/etc/shahbit/shahbit.conf"
+
+# What directory to write pidfile to?  (created and owned by $SHAHBITD_USER)
+#SHAHBITD_PIDDIR="/var/run/shahbitd"
+
+# What filename to give the pidfile
+#SHAHBITD_PIDFILE="${SHAHBITD_PIDDIR}/shahbitd.pid"
+
+# Where to write shahbitd data (be mindful that the blockchain is large)
+#SHAHBITD_DATADIR="/var/lib/shahbitd"
+
+# User and group to own shahbitd process
+#SHAHBITD_USER="shahbit"
+#SHAHBITD_GROUP="shahbit"
+
+# Path to shahbitd executable
+#SHAHBITD_BIN="/usr/bin/shahbitd"
+
+# Nice value to run shahbitd under
+#SHAHBITD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+SHAHBITD_OPTS="-disablewallet"
+
+# The timeout in seconds OpenRC will wait for shahbitd to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+SHAHBITD_SIGTERM_TIMEOUT=60

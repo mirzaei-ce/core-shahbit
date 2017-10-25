@@ -1,0 +1,3 @@
+debian/manpages/shahbitd.1
+debian/manpages/shahbit.conf.5
+debian/manpages/shahbit-cli.1

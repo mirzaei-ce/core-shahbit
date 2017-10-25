@@ -1,0 +1,22 @@
+[Unit]
+Description=Shahbit's distributed currency daemon
+After=network.target
+
+[Service]
+User=shahbit
+Group=shahbit
+
+Type=forking
+PIDFile=/var/lib/shahbitd/shahbitd.pid
+ExecStart=/usr/bin/shahbitd -daemon -pid=/var/lib/shahbitd/shahbitd.pid \
+-conf=/etc/shahbit/shahbit.conf -datadir=/var/lib/shahbitd -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

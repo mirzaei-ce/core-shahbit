@@ -1,0 +1,5 @@
+Building Shahbit
+
+See doc/build-*.md for instructions on building shahbitd,
+the intended-for-services, no-graphical-interface, reference
+implementation of Shahbit.

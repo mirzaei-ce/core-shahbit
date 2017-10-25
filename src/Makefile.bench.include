@@ -1,0 +1,45 @@
+bin_PROGRAMS += bench/bench_shahbit
+BENCH_SRCDIR = bench
+BENCH_BINARY = bench/bench_shahbit$(EXEEXT)
+
+
+bench_bench_shahbit_SOURCES = \
+  bench/bench_shahbit.cpp \
+  bench/bench.cpp \
+  bench/bench.h \
+  bench/Examples.cpp
+
+bench_bench_shahbit_CPPFLAGS = $(AM_CPPFLAGS) $(SHAHBIT_INCLUDES) $(EVENT_CLFAGS) $(EVENT_PTHREADS_CFLAGS) -I$(builddir)/bench/
+bench_bench_shahbit_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bench_bench_shahbit_LDADD = \
+  $(LIBSHAHBIT_SERVER) \
+  $(LIBSHAHBIT_COMMON) \
+  $(LIBSHAHBIT_UNIVALUE) \
+  $(LIBSHAHBIT_UTIL) \
+  $(LIBSHAHBIT_CRYPTO) \
+  $(LIBLEVELDB) \
+  $(LIBMEMENV) \
+  $(LIBSECP256K1)
+
+if ENABLE_ZMQ
+bench_bench_shahbit_LDADD += $(LIBSHAHBIT_ZMQ) $(ZMQ_LIBS)
+endif
+
+if ENABLE_WALLET
+bench_bench_shahbit_LDADD += $(LIBSHAHBIT_WALLET)
+endif
+
+bench_bench_shahbit_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+bench_bench_shahbit_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+
+CLEAN_SHAHBIT_BENCH = bench/*.gcda bench/*.gcno
+
+CLEANFILES += $(CLEAN_SHAHBIT_BENCH)
+
+shahbit_bench: $(BENCH_BINARY)
+
+bench: $(BENCH_BINARY) FORCE
+	$(BENCH_BINARY)
+
+shahbit_bench_clean : FORCE
+	rm -f $(CLEAN_SHAHBIT_BENCH) $(bench_bench_shahbit_OBJECTS) $(BENCH_BINARY)
